@@ -1,0 +1,19 @@
+The main crux is that you start with 1 and keep multiplying 2 and adding the new number to a set. 
+When your number becomes greater than the target you check if (num // 3) is present in the set of not. 
+If it is present, it means you had already encountered this number previously and
+so no point in dividing by 3 and just multiply by 2 further
+
+num = 1
+count = 0
+visited = set()
+visited.add(1)
+while(num != target):
+    if (num > target) and ((num // 3) not in visited):
+        num //= 3
+    else:
+        num *= 2
+        
+    visited.add(num)
+    count += 1
+
+return count
