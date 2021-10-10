@@ -1,0 +1,23 @@
+#if less that 0 we return False
+if x < 0:
+    return False
+
+#here with update our divider to reach the range of our integer
+divider = 1
+while x >= divider * 10:
+    divider = divider * 10
+
+
+while x:
+     #get rightmost value and leftmost value and compare them if not equal return false
+    right = x % 10
+    left = x // divider
+
+    if left != right:
+        return False
+    # there we chop off the leftmost and rightmost value
+    x = (x%divider)//10
+    # here we update our divider.
+    divider = divider/100
+
+return True
