@@ -1,0 +1,27 @@
+s = "2[abc]3[cd]ef"
+Output = "abcabccdcdcdef"
+
+#Create a stack
+stack = []
+for i in s:
+    #Keep checking while we are not at a closeing bracket.
+    if i != "]":
+        stack.append(i)
+    #If we reach a closing bracket 
+    else:
+      	#we create a new string and start appending backwards
+        st = ""
+        #we keep doing this while we are not yet at an opening bracket
+        while stack and stack[-1] != "[":
+            st = stack.pop() + st      
+        # we remove the opening bracket
+        stack.pop()
+        #now we find the integers to multiply it by
+        dig = ""
+        while stack and stack[-1].isdigit():
+            dig = stack.pop() + dig
+        now we multiply the integer by the string and then append it to the stack.
+        stack.append(int(dig) * st)
+        
+        #we return everything as a string.
+        return "".join(stack)
