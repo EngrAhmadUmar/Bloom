@@ -1,0 +1,21 @@
+Link: https://leetcode.com/discuss/interview-question/329221/Bloomberg-or-Phone-screen-or-Software-Development-Internship-2019
+
+Elaborating on this, I think a slightly better approach would be to divide the area into 4 quarters. 
+Think of performing a 2D binary search. Use the hashShips() function to check if there are ships present in the quarter;
+if yes - search recursively within it. End condition for recursion would be if both p1 and p2 are the same, 
+in which case you just return 1 if the ship is present or 0 if it isn't. 
+Here is the code (and I really hope its correct. I haven't really run it).
+
+def countShips(bottom_left: Point, top_right: Point) -> int:
+
+    if bottom_left.x==top_right.x and bottom_left.y=top_right.y:
+        return int(hashShips(bottom_left))
+
+    elif hasShips(bottom_left, top_right):
+        count = 0
+        mid_x = (bottom_left.x + top_right.x)//2
+        mid_y = (bottom_left.y + top_right.y)//2
+        p1, p2, p3, p4, p5, p6 = Point(bottom_left.x, mid_y+1), Point(mid_x, top_right.y), Point(mid_x, mid_y), Point(mid_x+1, mid_y+1), Point(mid_x+1, bottom_left.y), Point(top_right.x, mid_y)
+        count = countShips(bottom_left, p3)  + countShips(x5, x6) + countShips(x1, x2) + countShips(x4, top_right)
+        
+    return count
