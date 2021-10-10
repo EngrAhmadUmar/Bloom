@@ -1,0 +1,19 @@
+def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        dic = {}
+        for i in tickets:
+            dic[i[0]] = []
+            dic[i[1]] = []
+
+        for i in tickets:
+            dic[i[0]].append(i[1])
+
+        for l in dic.values():
+            l.sort()
+
+        output = []
+        def helper(node):
+            while dic[node]:
+                helper(dic[node].pop(0))
+            output.append(node)
+        helper("JFK")
+        return(reversed(output))
