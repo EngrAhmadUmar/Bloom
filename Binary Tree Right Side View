@@ -11,3 +11,8 @@ while queue != [] and root is not None:
     queue = level
     level = []
 return result
+
+
+time = o(n) where n is the number of nodes
+space = o(d) where d is the diameter of the node
+because we never actually stored any value, we were re-writing queue and level over and over again.
