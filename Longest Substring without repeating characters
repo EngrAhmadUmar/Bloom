@@ -1,0 +1,13 @@
+s = "dvdf"
+l, r = 0, 0
+dic = {}
+result = 0
+while r < len(s):
+    if s[r] not in dic:
+        dic[s[r]] = True
+        r += 1
+        result = max(r-l, result)
+    else:
+        dic.pop(s[l])
+        l += 1
+        
