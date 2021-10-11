@@ -28,3 +28,16 @@ for idx, num in enumerate(arr):
     sum_so_far += lookup_arr[idx]
     if sum_so_far == 0:
         result.append(num)
+
+
+
+Another Approach
+for start, stop in ranges:
+    if start >= len(array):
+        continue
+    for i in range(start, stop):
+        array[i] = float('inf')
+result = []
+for value in array:
+   if value != float('inf'):
+       result.append(value)
