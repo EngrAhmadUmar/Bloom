@@ -1,0 +1,30 @@
+arr = [-8, 3, -5, 1, 51, 56, 0, -5, 29, 43, 78, 75, 32, 76, 73, 76]
+ranges = [[5, 8], [10, 13], [3, 6], [20, 25]]
+# Output: [-8, 3, -5, 29, 43, 76, 73, 76]
+
+#we create a dp array
+max_size = len(arr)
+lookup_arr = [0] * max_size
+
+#we loop through the ranges
+and if the start in inbound we change its index in our dp to 1
+and if the end is inbound we change its index in our dp to -1
+
+for range in ranges:
+    start, end = range[0], range[1]
+    # why not just +1 or -1
+    # because we may have overlapping ranges
+    # like [5,8], [5, 10]
+    if start < max_size:
+        lookup_arr[start] += 1
+    if end < max_size:
+        lookup_arr[end] -= 1
+
+we will check if we should add to our array using the sum_so_far variable
+if it is zero we add to our result array as it will be greater than 0 if we are in a range.
+sum_so_far = 0
+result = []
+for idx, num in enumerate(arr):
+    sum_so_far += lookup_arr[idx]
+    if sum_so_far == 0:
+        result.append(num)
