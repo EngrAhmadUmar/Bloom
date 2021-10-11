@@ -1,0 +1,9 @@
+result = [[]]
+if len(nums) == 0:
+    return result
+for i in nums:
+    l = len(result)
+    for j in range(l):
+        r = result[j] + [i]
+        result.append(r)
+return result
