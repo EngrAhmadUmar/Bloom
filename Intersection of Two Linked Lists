@@ -1,0 +1,45 @@
+#Brute-Force
+visited = set()
+curA, curB = headA, headB
+while curA:
+    visited.add(curA)
+    curA = curA.next
+
+while curB:
+    if curB in visited:
+        return curB
+    curB = curB.next
+
+return None
+
+
+#Optimal
+curA, curB = headA, headB
+a, b = 0, 0
+while curA:
+    a+=1
+    curA = curA.next
+
+while curB:
+    b+=1
+    curB = curB.next
+
+if a > b:
+    curL = headA
+    dif = a-b
+    curS = headB
+else:
+    curL = headB
+    dif = b-a
+    curS = headA
+
+i = 0
+while i < dif:
+    i += 1
+    curL = curL.next
+
+while curL != curS:
+    curL = curL.next
+    curS = curS.next
+
+        return curL
