@@ -1,0 +1,13 @@
+heap = []
+for i in range(len(costs)):
+    heap.append([costs[i][1]-costs[i][0], i])
+
+heap = sorted(heap)
+result = 0
+for i in range(len(heap)):
+    if i < len(heap)//2:
+        result += costs[heap[i][1]][1]
+    else:
+        result += costs[heap[i][1]][0]
+
+return result
