@@ -19,3 +19,6 @@ def helper(i, j, k):
     memo[(i,j,k)] = b1 or b2
     return b1 or b2
 return helper(0, 0, 0)
+
+Time = N(A*B)
+Space = N(A*B)
