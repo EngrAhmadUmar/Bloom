@@ -1,0 +1,37 @@
+class BrowserHistory:
+
+    def __init__(self, homepage: str):
+        #initialising a list to hold our history
+        self.history = [homepage]
+        #the current number of visited pages
+        self.current = 0
+
+    def visit(self, url: str) -> None:
+        #here we are appending to our history list
+        self.history = self.history[:self.current+1]
+        self.history.append(url)
+        #we update our new current variable
+        self.current = len(self.history) - 1
+        
+
+    def back(self, steps: int) -> str:
+        #here we calculate if we can actually go backward the steps needed.
+        #if not we go back words all the way to the zero index
+        self.current = max(0, self.current - steps)
+        #here we make our return value the item at the index of the current step after going back.
+        url = self.history[self.current]
+        return url
+
+    def forward(self, steps: int) -> str:
+        #here we check if we can go as forward as we want without exceeding the size of our list
+        self.current = min(len(self.history)-1, self.current + steps)
+        #if we can, we make our return value the item at the index of the current step after going forward.
+        url = self.history[self.current]
+        return url
+
+
+# Your BrowserHistory object will be instantiated and called as such:
+# obj = BrowserHistory(homepage)
+# obj.visit(url)
+# param_2 = obj.back(steps)
+# param_3 = obj.forward(steps)
