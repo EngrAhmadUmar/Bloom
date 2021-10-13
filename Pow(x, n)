@@ -14,3 +14,7 @@ class Solution:
             return 1/result
         else:
             return result
+
+
+time = o(log2n)
+subscript 2
