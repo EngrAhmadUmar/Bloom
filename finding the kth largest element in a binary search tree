@@ -1,0 +1,20 @@
+def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+    self.counter = 1
+    self.result = None
+
+    def inorder(node):
+        if not node or self.result:
+            return
+
+        inorder(node.right)
+        if self.counter == k:
+            self.result = node.val
+
+        self.counter += 1
+        inorder(node.left)
+
+    inorder(root)
+    return self.result
+    
+Time = o(k) because of the call stack space.
+space = o(k)
