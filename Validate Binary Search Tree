@@ -1,0 +1,14 @@
+def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    def validate(low, high, node):
+        if not node:
+            return True
+        elif node.val <= low or node.val >= high:
+            return False
+        else:
+            return validate(low, node.val, node.left) and validate(node.val, high, node.right)
+
+    return validate(float('-inf'), float('inf'), root)
+    
+    time = o(n) 
+    space = o(n)
+    where n is the number of nodes
