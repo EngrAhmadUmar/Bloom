@@ -1,0 +1,20 @@
+ def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    if root is None:
+        return []
+    result = []
+    queue = [root]
+    level = []
+    while queue != []:
+        pre = []
+        for node in queue:
+            if node != None:
+                pre.append(node.val)
+                if node.left:
+                    level.append(node.left)
+                if node.right:
+                    level.append(node.right)
+        result.append(pre)        
+        queue = level
+        level = []
+    return result
+            
