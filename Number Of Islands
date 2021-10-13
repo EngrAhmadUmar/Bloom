@@ -1,0 +1,36 @@
+class Solution(object):
+    def numIslands(self, grid):
+        result = 0
+        check = set()
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                sol = self.helper(i, j, grid, check)
+                if sol == 1:
+                    result += 1
+        return result
+    
+    def helper(self, i, j, grid, check):
+        border = 0 <= i and i < len(grid)
+        border2 = 0 <= j and j < len(grid[0])
+
+        if border == False or border2 == False:
+            return 0
+
+        if grid[i][j] == "0":
+            return 0
+
+
+        x = (str(i) + "," + str(j))
+        c = x in check
+
+        if c == True:
+            return 0
+
+        check.add(x)
+
+        self.helper(i-1, j, grid, check)
+        self.helper(i+1, j, grid, check)
+        self.helper(i, j-1, grid, check)
+        self.helper(i, j+1, grid, check)
+        return 1
+        
