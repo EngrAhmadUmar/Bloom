@@ -1,0 +1,17 @@
+ def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+    self.counter = 1
+    self.result = None
+
+    def inorder(node):
+        if not node or self.result:
+            return
+
+        inorder(node.left)
+        if self.counter == k:
+            self.result = node.val
+
+        self.counter += 1
+        inorder(node.right)
+
+    inorder(root)
+    return self.result
