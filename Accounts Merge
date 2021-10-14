@@ -1,0 +1,60 @@
+def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        
+        #our gragh
+        #we use set because we want to avoid duplicates
+        graph = collections.defaultdict(set)
+
+        #email to name dictionary
+        emailToName = {}
+
+        #creating our graph
+        for acct in accounts:
+            name = acct[0]
+
+            #build our edge for all emails
+            #i chose email one, but i think it can be done with all the other emails
+            #but ill use the first one
+            email1 = acct[1]
+
+            #arranging our email to name dictionary
+            emailToName[email1] = name
+
+            #we are building our edges
+            #and they will all be bydirectional
+            #since there is no sequence
+            for email2 in acct[2:]:
+                graph[email1].add(email2)
+                graph[email2].add(email1)
+                emailToName[email2] = name
+
+        ans = []
+        seen = set()
+
+        # starting to build our answers
+        for email in emailToName:
+            #if this email has not been seen
+            # so if this email has not been traversed before.
+            if email not in seen:
+                stack = [email]
+                seen.add(email)
+                #we keep this to store the emails for the current group
+                emails = []
+
+
+                #now our dfs template
+                while stack:
+                    #we pop our what is in our stack
+                    cur = stack.pop()
+                    #we append the current emaill to our emails list
+                    emails.append(cur)
+
+                    for nei in graph[cur]:
+                        if nei not in seen:
+                            stack.append(nei)
+                            seen.add(nei)
+                #after this while loop we have all the emails that belong to the
+                #current group
+                #so we populate our final answer
+                #the first one being name and then the email list which will be sorted
+                ans.append([emailToName[email]] + sorted(emails))
+        return ans
