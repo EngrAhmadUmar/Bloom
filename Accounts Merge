@@ -58,3 +58,9 @@ def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
                 #the first one being name and then the email list which will be sorted
                 ans.append([emailToName[email]] + sorted(emails))
         return ans
+
+time complexity is really affected by the sorting
+Time Complexity = sum(m*logn)
+
+m = length of each account
+n = total number of accounts
