@@ -100,5 +100,4 @@ class Solution:
       op = operators.pop()
 
       num.append(evaluate(num1, num2, op))
-
-  return(num[-1])
+   operators.pop()
