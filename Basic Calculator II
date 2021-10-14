@@ -1,0 +1,104 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        #creating our priority function to get the priority of the operations
+        def priority(op):
+            if op in "+-":
+                return 1
+            if op in "*/":
+                return 2
+
+        #our evaluate function to help us evaluate the function
+        def evaluate(num1, num2, op):
+            if op == "+": 
+                return num1 + num2
+            if op == "-":
+                return num1 - num2
+            if op == "*":
+                return num1 * num2
+            if op == "/":
+                return num1 // num2
+
+        #our numbers stack
+        num = []
+        #our operator stack
+        operators = []
+
+        n = len(s)
+        i = 0
+
+        #loop through the string
+        while i < n:
+            #we handle the empty string edge case
+            if s[i] == " ":
+                i += 1
+                continue
+
+            #if the current word is digit
+            if s[i].isdigit():
+                cur_num = 0
+                #continue moving the cusor to the right until we reach a 
+                #character that is not a digit
+                while i < n and s[i].isdigit():
+                    cur_num = cur_num * 10 + int(s[i])
+                    i += 1
+                    #then we create the current number
+
+                num.append(cur_num)
+                #we append it to the num stack
+
+                #we reduce i by one to prevent double counting because
+                #we have already gone one extra
+                i-=1 
+
+            #if it is an operator
+            else: 
+                #compare the current operator and the top one to see if the current operators priority is
+                #equal or smaller that the the top one
+                #we can keep poping and doing the operations
+                while operators and priority(s[i]) <= priority(operators[-1]):
+                    num2 = num.pop()
+                    num1 = num.pop()
+                    op = operators.pop()
+
+                    #we now append to our num stack the result of the operation
+                    num.append(evaluate(num1, num2, op))
+
+                operators.append(s[i])
+
+            i+=1
+
+        #in the end we also need to do a while loop
+        #because if the priorities are always high we might endup we a none empty stack
+        while operators:
+            num2 = num.pop()
+            num1 = num.pop()
+            op = operators.pop()
+
+            num.append(evaluate(num1, num2, op))
+
+        return(num[-1])
+        
+   Time Complexity:- o(n) cuz all items will only be pushed and poped once
+   space complexity:- o(n)
+   
+   follow up: 
+   - what if we want to accomodate more operations like the power operations.
+   answer: in that case we add and opperator to our priority and and also add its evaluation
+   
+   - to support parenthesis
+   ans: add to more if statement
+   one is if the index value is an opening parenthesis. we just append it to our operators stack
+   if it is a closed parenthesis we can just pop it and evaluate it
+   we just modify it to make sure we keep doing the operations until we find an opening bracket
+  
+  snippet below:-
+   
+   
+   while operators and operators[-1] != "(":
+      num2 = num.pop()
+      num1 = num.pop()
+      op = operators.pop()
+
+      num.append(evaluate(num1, num2, op))
+
+  return(num[-1])
