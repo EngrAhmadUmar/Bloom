@@ -48,3 +48,5 @@ class Solution:
             #append our return value to output
             output.append(dfs(p,q,set()))
         return output
+
+#time complexity = o(n+v) n = nodes v = vectors
