@@ -1,0 +1,12 @@
+class ParkingSystem:
+
+    def __init__(self, big: int, medium: int, small: int):
+        #here we use an array to help us keep track of how many cars of each size we have seen so far
+        #we arrange it in this order because the indexing will help us since the car types are represented by 1, 2, 3 respectively
+        self.space = [0, big, medium, small]
+
+    def addCar(self, carType: int) -> bool:
+        #here re subtrack 1 from the index of the car type anytime a new car parks there
+        self.space[carType] -= 1
+        #return false if the space is less than 0 meaning there is no more space for someone else to part
+        return self.space[carType] >= 0
