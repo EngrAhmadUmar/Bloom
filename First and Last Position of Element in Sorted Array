@@ -1,0 +1,33 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        #run our bin search algorithm
+        left = self.binSearch(nums, target, True)
+        right = self.binSearch(nums, target, False)
+        return [left, right]
+    #create a helper function to do the binary search for us
+    #leftBias can either be true or false, if true the result is right biased
+    # if leftbias is true, we are looking for the leftmost index else we are 
+    #looking for the right most index
+    def binSearch(self, nums, target, leftBias):
+        l, r = 0, len(nums)-1
+        #our index
+        i = -1
+        while l<=r:
+            m = (l+r)//2
+            #if target is greater than our middle value
+            if target > nums[m]:
+                #we shift our left pointer
+                l = m + 1
+            #if it is less
+            elif target < nums[m]:
+                r = m - 1
+            else:
+                i = m
+                #if we are looking for the start element
+                if leftBias:
+                    r = m - 1
+                #if we are right biased
+                else:
+                    l = m + 1
+                    
+        return i
