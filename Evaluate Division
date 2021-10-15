@@ -49,4 +49,4 @@ class Solution:
             output.append(dfs(p,q,set()))
         return output
 
-#time complexity = o(n+v) n = nodes v = vectors
+#time complexity = o(n+v) n = number of nodes v = how many vectors/edges we have
