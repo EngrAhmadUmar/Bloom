@@ -1,0 +1,41 @@
+class MagicDictionary:
+
+    def __init__(self):
+        #initializing my data structure as a dictionary 
+        #whith list as its value
+        self.map = defaultdict(list)
+
+    def buildDict(self, dictionary: List[str]) -> None:
+        #adding each word to my dictionary with the length of the word being the key
+        #and the word being the value
+        for word in dictionary:
+            self.map[(len(word))] += [word]
+
+    def search(self, searchWord: str) -> bool:
+        #if the length of the word is not in our dictionary
+        #return false straight up
+        if len(searchWord) not in self.map:
+            return False
+        
+        #word list is going to be elements in our dictionary with that length        
+        for word in self.map[len(searchWord)]:
+            count = 0
+            #if the word is there and it has a different value increase our count
+            for i in range(len(searchWord)):
+                if searchWord[i] != word[i]:
+                    count += 1
+                if count > 1:
+                    break
+                    
+            #if count is 1 return true
+            if count == 1:
+                return True
+        #return false because it is not found
+        return False
+
+
+time = o(m*n) space = o(m)
+# Your MagicDictionary object will be instantiated and called as such:
+# obj = MagicDictionary()
+# obj.buildDict(dictionary)
+# param_2 = obj.search(searchWord)
