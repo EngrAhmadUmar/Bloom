@@ -1,0 +1,19 @@
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        #we create a stack
+        stack = []
+        #we loop through the string
+        for i in s:
+            # if the last element in the stack is equal to i
+            if stack and stack[-1][0] == i:
+                #we increment the count by one
+                stack[-1][1] += 1
+            # else we append a new value to the stack with the value of one
+            else:
+                stack.append([i, 1])
+
+            #if the value of the last element is equal to k we then pop it
+            if stack[-1][1] == k:
+                stack.pop()
+        #here we return our result as a string according to the frequency of the values
+        return "".join([c * n for c, n in stack])
