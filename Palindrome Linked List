@@ -1,0 +1,54 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        #we can solve this problem by reversing from the middle
+        #of the linked list to the end and then running two pointers one at 
+        #the begining of the linked list and one at the end
+        #to check if the values are the same or not
+        #if not the same return false but if we reach the end of the linked list return true
+        cur = head
+        
+        #find the midpoint
+        n = 0
+        while cur:
+            n += 1
+            cur = cur.next
+            
+        mid = n//2
+        #to keep track of where the mid node is going to be
+        i = 0
+        
+        #create a reverse function
+        def reverse(head):
+            ans = None
+            while head:
+                nx = head.next
+                head.next = ans
+                ans = head
+                head = nx
+            return ans
+        
+        
+        #find our first and second pointer
+        first = second = head
+        #move our second pointer to the mid point
+        while i < mid:
+            second = second.next
+            i += 1
+            
+        #now we reverse from that part and store it, it will be our new second
+        second = reverse(second)
+        
+        #now we compare the two pointer to see if they are same
+        while first and second:
+            if first.val != second.val:
+                return False
+            
+            first = first.next
+            second = second.next
+            
+        return True
