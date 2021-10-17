@@ -1,0 +1,14 @@
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        #create a dictionary of the occurances of my values
+        c = collections.Counter(list(s))
+        
+        #my result list
+        output = []
+
+        #loop through the dictionary sorted by the values and is also reversed
+        for i in sorted(c, key=lambda x:c[x], reverse=True):
+            #append the result to our output array
+            output.append(i * c[i])
+            
+        return "".join(output)
