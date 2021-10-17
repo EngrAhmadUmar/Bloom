@@ -1,0 +1,29 @@
+#importing heap
+import heapq
+
+# intervals = [[0, 15], [0, 30], [5, 10], [15, 20], [21, 25]]
+intervals = [[0,30], [5, 10], [15, 20]]
+#we first sort the intervals array
+intervals.sort()
+
+#we create meeting rooms
+meeting_rooms = 1
+
+# in our heap we add the end time in our first meeting room
+heap = [intervals[0][1]]
+
+#we loop throught the remaining intervals apart from the first one
+#because the first one is already accounted for
+for start, end in intervals[1:]:
+    #if the minimun end time is less than our start time
+    if heap[0] <= start:
+        #we take whatever meeting happening in that room out
+        heapq.heappop(heap)
+        
+    #we add the end time of our meeting to the heap
+    heapq.heappush(heap, end)
+    
+    #calculating our new meeting rooms
+    meeting_rooms = max(meeting_rooms, len(heap))
+    
+print(meeting_rooms)
