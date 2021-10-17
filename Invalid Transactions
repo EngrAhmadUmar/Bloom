@@ -1,0 +1,35 @@
+class Solution:
+    def invalidTransactions(self, transactions: List[str]) -> List[str]:
+        d = {}
+        #sorting our transaction array by its name and time
+        tran=sorted(transactions, key = lambda x: (x[0],int(x.split(',')[1])))
+        #creating two pointers, our start and stop pointers
+        start,end = 0,1
+        #creating a new array with each string being a different index
+        trans = [i.split(',') for i in tran]
+
+        #here we are checking any of the transactions which has a price of over 1000 usd should be added to our dictionary
+        if int(trans[start][2])>1000:
+            #with the key being the index and the value being the transaction string
+            d[start] = tran[start]
+
+        #we loop through transactions
+        while end<len(transactions):
+            #convering the price string to integer and checking if it is more that 1000
+            if int(trans[end][2])>1000:
+                #if it is more than 1000 we add it to our dictionary
+                #with the key being the index and the value being the transaction string
+                d[end]=tran[end]
+
+              #here we check the times the names and times of transactions if the transactions occured less than
+              #60 minutes in between
+            while end<len(tran) and trans[start][0] == trans[end][0] and abs(int(trans[start][1])-int(trans[end][1]))<=60:
+        #     #if so we check if the cities are different
+              #if the cities are different we add the transaction to our dictionary
+                if trans[start][3]!=trans[end][3]:
+                    d[start]=tran[start]
+                    d[end]=tran[end]
+                end+=1
+            start+=1
+            end = start +1
+        return list(d.values())
