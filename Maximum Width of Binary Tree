@@ -1,0 +1,35 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        #we will use the formula for the left child to multiply it 
+        # by two of the index number and for the right child to 
+        # multiply it by two plus one 
+        
+        # so to get the answer we get the index level of the right most node, subtract that by the index number of the leftmost node, and we add one to get the width
+        
+        #to do that we create a queue of the tuple of the root and put in the index number
+        q = deque([(root, 1)])
+        width = 0
+        while q:
+            # lets calculate the width
+            #we get the index number of the left most node in this queue and same for the right most node
+            _, left = q[0]
+            _, right = q[-1]
+            width = max(width, right-left+1)
+            next_level = deque()
+            #create a queue for the next level
+            while q:
+                node, index = q.popleft()
+                if node.left:
+                    next_level.append((node.left, index*2))
+                if node.right:
+                    next_level.append((node.right, index*2+1))
+                    
+            q = next_level
+            
+        return width
