@@ -1,0 +1,13 @@
+class Solution:
+    def minPathSum(self, matrix: List[List[int]]) -> int:
+        rows, cols = len(matrix), len(matrix[0])
+        
+        res = [[float("inf")]*(cols+1)for r in range(rows+1)]
+        res[rows-1][cols] = 0
+        
+        for r in range(rows-1, -1, -1):
+            for c in range(cols-1, -1, -1):
+                res[r][c] = matrix[r][c] + min(res[r+1][c], res[r][c+1])
+        return res[0][0]
+    
+    #we are basically using the buttom up approach to check for the min in the buttom and left and add it to our grid position and that will be our dp array value at that index, then after we will return the first index of the first index as it would show our current position.
