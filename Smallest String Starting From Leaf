@@ -1,0 +1,46 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
+        # we can try to solve this with dfs
+        # we can try to find the route from every leaf to the root
+        # and we return the lexicographically smallest string from those result
+        
+        # create our answer variable
+        # we will give it a string value that has a lexical order that is greater than all alphabets
+        # so it can be easily replacable
+        self.ans = "~"
+        
+        # we create a helper function
+        self.traverse(root, [])
+        
+        return self.ans
+    
+    def traverse(self, root, path):
+        if not root:
+            return
+        
+        #add elements
+        path.append(chr(root.val + 97))
+        
+        # checking if there is no further path
+        if not root.left and not root.right:
+            # we compare the values by lexical order and change our answer to the minimum
+            # we are using the minimum function because it compares by lexical order first
+            # and then by the length of the string
+            
+            # we are changing our path array to a string and also reversing it because the order is in reverse
+            self.ans = min(self.ans, "".join(reversed(path)))
+
+        # we are recursively calling the funtion on our left path then right path
+        self.traverse(root.left, path)
+        self.traverse(root.right, path)
+
+        # we need to pop the last element so we can try other paths
+        path.pop()
+        
+ time = o(v) where V is the number of nodes.
