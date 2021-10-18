@@ -1,13 +1,24 @@
-heap = []
-for i in range(len(costs)):
-    heap.append([costs[i][1]-costs[i][0], i])
+class Solution:
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        #the first thing is to create use a min heap which will contain the difference in price between
+        #city two and city one
+        
+        #then we can send sort the min heap and send the first half to city b and the second half to city a
+        heap = []
+        
+        #creating our min heap
+        for i in range(len(costs)):
+            heap.append([costs[i][1]-costs[i][0], i])
 
-heap = sorted(heap)
-result = 0
-for i in range(len(heap)):
-    if i < len(heap)//2:
-        result += costs[heap[i][1]][1]
-    else:
-        result += costs[heap[i][1]][0]
+        heap = sorted(heap)
+        
+        #we then create our result value where we will store the minimum cost
+        result = 0
+        #now we add the price of sending the first half to city b and add the price of sending the second half to city a
+        for i in range(len(heap)):
+            if i < len(heap)//2:
+                result += costs[heap[i][1]][1]
+            else:
+                result += costs[heap[i][1]][0]
 
-return result
+        return result
