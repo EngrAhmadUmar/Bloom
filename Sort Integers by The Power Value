@@ -1,0 +1,27 @@
+import heapq
+lo = 12
+hi = 15
+k = 2
+
+#creating a dictionary
+mem={1:0}
+    
+#creating our power function
+def power(x):
+    #while x is still not in our dictionary we run the following operations on x
+    #if x is even then x = x / 2
+    #if x is odd then x = 3 * x + 1
+    if x not in mem:
+        mem[x]=1+(power(3*x+1) if x%2 else power(x//2))
+        
+    #we return the key and its power value
+    return mem[x]
+
+#create a result array
+result=[]
+
+for ele in range(lo,1+hi):
+    #here we are adding result a list of list of our power value and x
+    heapq.heappush(result,(power(ele),ele))
+
+return result[0][1]
