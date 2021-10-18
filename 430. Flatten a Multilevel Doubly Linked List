@@ -1,20 +1,50 @@
-def flatten(self, head: 'Node') -> 'Node':
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        #if not head we return head
         if not head:
             return head
+        
+        #we create our dummy node which will be our result linked list
         dummy = Node(0)
+        
+        #we will be performing a dfs
         cur, stack = dummy, [head]
         
+        #while our stack is not empty
         while stack:
+            #we pop from our stack
             tmp = stack.pop()
+            #if it has a next value we append the next value to our stack
             if tmp.next:
                 stack.append(tmp.next)
+            #if it has a child we append the child to our stack
+            #that way when poping we get the child node before the next node
             if tmp.child:
                 stack.append(tmp.child)
                 
+            #we add the current node to our result stack
             cur.next = tmp
+            
+            #we change our current nodes prev to our cur
             tmp.prev = cur
+            
+            #we have to change the tmps child to nothing since we 
+            #have removed it and added it to our stack
             tmp.child = None
+            
+            #we move our pointer ahead by making.
             cur = tmp
             
+        #changing the first element in our dummy to none
         dummy.next.prev = None
         return dummy.next
