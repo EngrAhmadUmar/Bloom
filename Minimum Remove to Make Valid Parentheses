@@ -1,0 +1,26 @@
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        #we start by creating a list of s
+        s = list(s)
+        #we create a stack to keep track of the number of parenthesis
+        stack = []
+        
+        #we loop through s
+        for i in range(len(s)):
+            #if is equal to openning bracket we just append its index to our stack
+            if s[i] == "(":
+                stack.append(i)
+            #if it is a closing bracket we check if we check if
+            #there is still an element in our stack we 
+            elif s[i] == ")":
+                if stack:
+                    stack.pop()
+                # if not we change the index of i in our list of s to and empty string
+                else:
+                    s[i] = ""
+
+        #we loop through our stack and change the index in s to an empty string.
+        for i in stack:
+            s[i] = ""
+
+        return "".join(s)
