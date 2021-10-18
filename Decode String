@@ -1,0 +1,26 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        #we create a stack as it is the main data structure that will help us solve this problem
+        stack = []
+        for i in s:
+            #if we have not reached a closing bracket we add it to our stack
+            if i != "]":
+                stack.append(i)
+            else:
+                #else we know we have reach a opening bracket so we can start calculating our result for that section
+                st = ""
+                #we keep concartenating our current string to our string.
+                while stack and stack[-1] != "[":
+                    st = stack.pop() + st      
+                #we remove the opening bracket
+                stack.pop()
+                
+                #then we start getting the integers to multiply it by
+                dig = ""
+                while stack and stack[-1].isdigit():
+                    dig = stack.pop() + dig
+                #we now append the string multiplied by the integer
+                stack.append(int(dig) * st)
+                
+        
+        return "".join(stack)
