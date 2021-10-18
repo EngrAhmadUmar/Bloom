@@ -1,0 +1,33 @@
+class RandomizedSet:
+
+    def __init__(self):
+        #since we are looking for to implement an o(1) data structure we can use a dictionary
+        self.items = {}
+
+        
+    def insert(self, val: int) -> bool:
+        #since we have to check if the item is in the our data structure or not first we do that here
+        if self.items.get(val):
+            return False
+        #if it is not we add it and return true
+        self.items[val] = 1
+        return True
+
+    def remove(self, val: int) -> bool:
+        #since we have to check if the item is in the our data structure or not first we do that here
+        if not self.items.get(val):
+            return False
+        #If it is there we pop it and return True
+        self.items.pop(val)
+        return True
+
+    def getRandom(self) -> int:
+        #here we can use the random choice function is python after converting the dictionary keys into a list.
+        return random.choice(list(self.items.keys()))        
+
+
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
