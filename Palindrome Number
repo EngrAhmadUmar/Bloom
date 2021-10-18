@@ -1,23 +1,30 @@
-#if less that 0 we return False
-if x < 0:
-    return False
-
-#here with update our divider to reach the range of our integer
-divider = 1
-while x >= divider * 10:
-    divider = divider * 10
-
-
-while x:
-     #get rightmost value and leftmost value and compare them if not equal return false
-    right = x % 10
-    left = x // divider
-
-    if left != right:
-        return False
-    # there we chop off the leftmost and rightmost value
-    x = (x%divider)//10
-    # here we update our divider.
-    divider = divider/100
-
-return True
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        #if x is less than 0 it can never be a palindrome because it
+        #it the "-" will change
+        if x < 0:
+            return False
+        
+        #here we try to get our divider value
+        #in order to know what i will be dividing by values by
+        #so if x = 121, divider = 100, if x = 1212, divider = 1000
+        divider = 1
+        while x >= divider * 10:
+            divider = divider * 10
+            
+        #while x exists
+        while x:
+            #we get the left most value of x by geting its modulo
+            right = x % 10
+            #we get the right most value by dividing it by our divider
+            left = x // divider
+            
+            #if they do not match return false
+            if left != right:
+                return False
+            #here we we remove our cut first and last value from x
+            x = (x%divider)//10
+            #and now we edit our divider
+            divider = divider/100
+            
+        return True
