@@ -1,0 +1,21 @@
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        #create our result array with and empty subset as the first index
+        result = [[]]
+        
+        #checking for edge case where nums is empty
+        if len(nums) == 0:
+            return result
+        
+        #we loop through the nums array
+        for i in nums:
+            #calculating the length of l because we will be looping through 
+            l = len(result)
+            for j in range(l):
+                #we loop through each element in result and add j to it
+                r = result[j] + [i]
+                #append our r which is the element at index r plus i
+                result.append(r)
+                
+        #return result
+        return result
