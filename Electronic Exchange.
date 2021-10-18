@@ -1,1 +1,17 @@
+What you're looking for is a kind of map or dictionary which supports the following queries:
+- Add(key, x): add x to the total for that key, creating a new entry if it doesn't already exist.
+- GetKLargest(k): return the keys/totals for the k largest entries.
+Let's say Q is the number of queries, and n is the number of distinct keys. We should assume that Q is much larger than n;
+choosing the NYSE as an example, there are a few thousand stocks traded, and a few million trades per day.
+
+1 - In the first scenario we assume that there are a large number of Add queries followed by one GetKLargest query.
+Since the cost of the Add query dominates, we can use a hashtable so that Add takes O(1) time, and then at the end of
+the day we can do GetKLargest in O(n log k) time using a priority queue of size k; note that we don't need to sort the 
+whole key-set in O(n log n) time just to find the k largest elements. The total cost of answering Q queries is O(Q + n log k).
+
+2 - It seems to me that in both second and third cases we can use ordinary binary search tree to store (aggregated volume, name) pairs.
+In Add operation we lookup current aggregated volume in hashtable, remove corresponding pair from a BST,
+insert a new pair back with updated volume in O(log(size(BST)) and update aggregated volume in hashtable.
+In GetKLargest we traverse k elements of BST in-order in O(k).
+
 https://stackoverflow.com/questions/59382278/algorithm-for-top-k-stock-in-electronic-exchange
