@@ -1,3 +1,11 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
         #our HashMap which will map our old nodes
@@ -8,13 +16,13 @@ class Solution:
         #this will be nested making things easier for us
         #because we dont need to pass in parameters everytime we call it
         #but we do need to pass in the node tho
-        def dfs(node):
+        def dfs(node): 
             #we check if it is in our hashmap,
             #if it is in our hashmap, that means we 
             #have already made a clone of it
             if node in oldToNew:
                 #return that clone
-                return oldToNew[node]
+                 return oldToNew[node]
             
             #create a copy of this node
             #by using the node constructor
@@ -23,7 +31,7 @@ class Solution:
             #add the copy to our hashmap
             oldToNew[node] = copy
             
-            #make copies of every neighbor of the original node
+            #make copies of every neighbor of the original node 
             for nei in node.neighbors:
                 #run dfs on that neighbor
                 #reture the copy that we create
@@ -37,5 +45,5 @@ class Solution:
         #call dfs on the node we are given
         #if if we dont have a node return None
         return dfs(node) if node else None
-        
- Time Complexity - O(n) n is number of edges + vertices
+    
+    # time = o(n) n=e+v
