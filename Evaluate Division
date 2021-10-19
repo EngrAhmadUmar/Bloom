@@ -3,6 +3,8 @@ class Solution:
         #so to do this we will use a default dictionary,
           #and use dictionaries are the values
             #so that way when we can easily check if a value exist in them
+            #and if the values exist we check the value if we can still find other nodes to 
+            #travel through until we find our target
         graph = defaultdict(dict)
         N = len(equations)
         #creating our graphs
@@ -39,7 +41,7 @@ class Solution:
                         return temp * graph[x][i]
             #return -1 if we are unable to find anything
             return -1
-        #initializing our result
+        #initializing our result 
         output = []
         
         for p,q in queries:
@@ -48,5 +50,3 @@ class Solution:
             #append our return value to output
             output.append(dfs(p,q,set()))
         return output
-
-#time complexity = o(n+v) n = number of nodes v = how many vectors/edges we have
