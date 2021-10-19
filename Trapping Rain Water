@@ -1,0 +1,29 @@
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        #we use two pointers
+        l, r = 0, len(height)-1
+        #we have two maxes the left max and right max
+        maxL, maxR = height[l], height[r]
+        
+        #our result to total the water for us
+        result = 0
+        while l < r:
+            #we are going to shift our pointer accorting to which one is les
+            if height[l] <= height[r]:
+                #since left is less than right
+                
+                
+                cur = maxL - height[l]
+                if cur > 0:
+                    result += cur
+                l += 1
+                #we update our left max
+                maxL = max(maxL, height[l])
+            else:
+                cur = maxR - height[r]
+                if cur > 0:
+                    result += cur
+                r -= 1
+                #update our right max
+                maxR = max(maxR, height[r])
+        return result
