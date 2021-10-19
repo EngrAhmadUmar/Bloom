@@ -1,0 +1,21 @@
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        #we need to take note of the number of coins we can make at each point
+        #so we need a dp array to keep track of that
+        #we make them infinit cus we was get the min value
+        dp = [float('inf') for _ in range(amount+1)]
+        
+        #we initialize the first index to 0 because 0 is can create nothing automatically
+        dp[0] = 0
+        #we need to check for each coin denomination how many coins it takes to fulfil that amount
+        #how this algoritm works is to look backward see the minimum we can make minus that coin amount
+        #to see if that minimum, if it is we update it
+        for i in range(len(dp)):
+            for c in coins:
+                #to check if we are inbound
+                #so we can subtract the coin amount from our value
+                if i-c >= 0:
+                    #we update our i to be the minimum
+                    dp[i] = min(dp[i], dp[i-c]+1)
+                    
+        return -1 if dp[-1] == float('inf') else dp[-1]
