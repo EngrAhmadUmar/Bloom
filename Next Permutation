@@ -1,0 +1,64 @@
+class Solution:
+    #make a reverse function  
+    def reverse(self, nums, beg, end):
+        while beg < end:
+            #this way we have two iterators and they keep swaping in-place on till they meet in the middle
+            self.swap(nums, beg, end)
+            beg += 1
+            end -= 1
+       
+    #since we will be swaping elements often
+    #lets create a swap function
+    def swap(self, nums, ind1, ind2):
+        temp = nums[ind1]
+        nums[ind1] = nums[ind2]
+        nums[ind2] = temp
+    
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        #we have to check for edge cases
+        if len(nums) == 1:
+            return
+        #if we only have two elements
+        #we just swap what ever we have
+        #it either going to be the biggest number possible or the smallest
+        #so either way we swap
+        if len(nums) == 2:
+            return self.swap(nums, 0, 1)
+        
+        #now to start with our initial logic
+        #we have a variable decrement which will represent our first non accending index
+        
+        #its gonna start from the second to last index
+        #since we cant swap the last digit with anything
+        
+        dec = len(nums) - 2
+        
+        #while our dec is greater than 0 and we are actually decending
+        #we continue
+        while dec >= 0 and nums[dec] >= nums[dec + 1]:
+            dec -= 1
+            
+        #now that we have dec we can reverse everything what was after it
+        self.reverse(nums, dec + 1, len(nums)-1)
+        
+        #to check if we went through the entire input and didnt find the first non accending
+        #which means our entire list is in accending order in which case after reversing we 
+        #have the smallest number possible so we just want to return
+        if dec == -1:
+            return
+        
+        #else we iterate one more time to find a number just bigger than our decrement index
+        next_num = dec + 1
+        while next_num < len(nums) and nums[next_num] <= nums[dec]:
+            next_num += 1
+            
+        #now we swap those two numbers
+        self.swap(nums, next_num, dec)
+        
+        return
+        
+run time - o(n)
+space - o(1)
