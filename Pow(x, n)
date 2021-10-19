@@ -1,20 +1,41 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
+        
+        #example 
+        #x = 2, n = 7
+        #2^7
+        #2^4 * 2^2 * 2^1
+        #we can think about how to simplify our equation and do it in logrithmic time
+        
+        #since we are using divide and conquere we will be using recursion
         def helper(x, n):
+            #for our base case we will use the fact that when you have to raise to the power of 0 you always get one,
+            #we will advantage of that
             if n == 0:
                 return 1
+            
+            #we get an input where we have to raise 0 to the power of something, that is a base case
             if x == 0:
                 return 0
+            
+            #we call the helper and pass in x, and divide the exponent by two and pass it
             res = helper(x, n//2)
+            
+            #we multiply res by two to make up for dividing it
             res = res * res
+            
+            #we return x multiplied by the result if the exponent was odd
+            #else we return the result directly
             return x * res if n%2 else res
+        
+        #we pass in the absolute value because we never wanna pass in a negetive exponent
         result = helper(x, abs(n))
         
+        #what if n is negetive we return 1 divided by the result
         if n < 0:
             return 1/result
         else:
             return result
-
-
-time = o(log2n)
-subscript 2
+        
+        #time - o(log2 N)
+        #subscript 2
