@@ -1,22 +1,22 @@
-s = "catsanddog"
-wordDict = ["cat","cats","and","sand","dog"]
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        #we can use recursion to check each word in the dictionary , if th first word is equal to it we are good.
+        #for example if the first word is cats, we check the first four letters in our s to see if it is equal, if
+        #equal we carry out the same operation on the rest of the s and call the function recursively.
+        dp = {}
+        def wordBreak(s):
+            if s in dp:
+                return dp[s]
+            result = []
+            for w in wordDict:
+                if s[:len(w)] == w:
+                    if len(w) == len(s):
+                        result.append(w)
+                    else:
+                        tmp = wordBreak(s[len(w):])
+                        for t in tmp:
+                            result.append(w + " " + t)
 
-
-dp = {}
-def wordBreak(s):
-    if s in dp:
-        return dp[s]
-    result = []
-    for w in wordDict:
-        if s[:len(w)] == w:
-            if len(w) == len(s):
-                result.append(w)
-            else:
-                tmp = wordBreak(s[len(w):])
-                for t in tmp:
-                    result.append(w + " " + t)
-                    
-    dp[s] = result
-    return result
-        
-print(wordBreak(s))
+            dp[s] = result
+            return result
+        return wordBreak(s)
