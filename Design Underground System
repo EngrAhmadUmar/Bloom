@@ -12,15 +12,23 @@ class UndergroundSystem:
     def checkIn(self, id: int, stationName: str, t: int) -> None:
         #we add the id of the customer and the starttime and stations
         self.i[id] = (t, stationName)
+        #this will get updated everytime the customer id check in
 
     def checkOut(self, id: int, stationName: str, t: int) -> None:
-        #here we get the values from the check in dictionary
+        #here we get the values from the check in dictionary which is a tuple of the start time and start station
         starttime, startstation = self.i[id]
         #we find the time taken by subtracting t from start time
         total = t-starttime
-        #we add the result to our checkout dictionary
+        #we add the total time it took to our checkout dictionary
         self.o[(startstation, stationName)].append(total)
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
         #here we return the average time taken by suming all the total times and dividing it by the length of our list.
         return sum(self.o[(startStation, endStation)])/len(self.o[(startStation, endStation)])
+
+
+# Your UndergroundSystem object will be instantiated and called as such:
+# obj = UndergroundSystem()
+# obj.checkIn(id,stationName,t)
+# obj.checkOut(id,stationName,t)
+# param_3 = obj.getAverageTime(startStation,endStation)
