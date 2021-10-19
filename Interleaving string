@@ -1,24 +1,35 @@
-A, B, R = len(s1), len(s2), len(s3)
-if A + B != R:
-    return False
-
-#using memorizetion to save time
-memo = {}
-def helper(i, j, k):
-    if (i,j,k) in memo:
-        return memo[(i,j,k)]
-    if i == A and j == B and k == R:
-        return True
-
-    b1, b2 = False, False
-    if i < A and s1[i] == s3[k]:
-        b1 = helper(i+1, j, k+1)
-    if j < B and s2[j] == s3[k]:
-        b2 = helper(i, j+1, k+1)
-
-    memo[(i,j,k)] = b1 or b2
-    return b1 or b2
-return helper(0, 0, 0)
-
-Time = N(A*B)
-Space = N(A*B)
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        #getting lengths of strings
+        A, B, R = len(s1), len(s2), len(s3)
+        
+        #checking for edge cases
+        if A + B != R:
+            return False
+        
+        #using memorizetion to save time
+        memo = {}
+        
+        #our recursive function, we are going to pass i being what point we are in string 1, b being our point in string 2
+        #and k the index number are string 3
+        def helper(i, j, k):
+            
+            if (i,j,k) in memo:
+                return memo[(i,j,k)]
+            
+            #our base case if we are at the end of the strings return true
+            if i == A and j == B and k == R:
+                return True
+            
+            #we will return two booleans, b1 for the first path and b2 for the second
+            b1, b2 = False, False
+            
+            
+            if i < A and s1[i] == s3[k]:
+                b1 = helper(i+1, j, k+1)
+            if j < B and s2[j] == s3[k]:
+                b2 = helper(i, j+1, k+1)
+                
+            memo[(i,j,k)] = b1 or b2
+            return b1 or b2
+        return helper(0, 0, 0)
