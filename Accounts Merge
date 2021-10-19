@@ -1,4 +1,11 @@
-def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+class Solution:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        
+        #for this dfs solution we will need to build a graph, so the 
+        #vertex for the graph is each email and the edge will be if two 
+        #emails belong to the same group then we add an edge between those two emails
+        
+        #so for all emails that belong to the same account we will draw edges
         
         #our gragh
         #we use set because we want to avoid duplicates
@@ -29,6 +36,12 @@ def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
 
         ans = []
         seen = set()
+        
+        #now that we have our graph created we can start with any of the emails,
+        #we do a dfs, and we use a graph try to find all the neigbours
+        #after each dfs, all the neighbors we can reach will be the emails that belong to the same group
+        #now that we have the emails, the only thing left will be to get the name
+        #and for that we will use our email to mail hashtable
 
         # starting to build our answers
         for email in emailToName:
@@ -58,9 +71,3 @@ def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
                 #the first one being name and then the email list which will be sorted
                 ans.append([emailToName[email]] + sorted(emails))
         return ans
-
-time complexity is really affected by the sorting
-Time Complexity = sum(m*logn)
-
-m = length of each account
-n = total number of accounts
