@@ -1,0 +1,35 @@
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+
+        #creating a dictionary to make our adjacency list
+        #with a list of the different ways we can go
+        dic = {} 
+        for i in tickets:
+            #create a key for the destination
+            dic[i[0]] = []
+            #create a key for the arrival
+            dic[i[1]] = []
+
+        #now we add to our dictionary the arrival to the list of destination
+        for i in tickets:
+            dic[i[0]].append(i[1])
+
+        #sort all the values
+        for l in dic.values():
+            l.sort()
+
+        output = []
+
+        #we'll do a dfs recursion methode
+        def helper(node):
+            #we we have the adjaceny for the node
+            while dic[node]:
+                #pop the first one of it off
+                #and then call our helper method
+                helper(dic[node].pop(0))
+
+            #so when we reach a point that there is no
+            #more values we append to our output array
+            output.append(node)
+        helper("JFK")
+        return(reversed(output))
