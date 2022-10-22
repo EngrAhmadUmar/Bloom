@@ -1,14 +1,28 @@
-def isValidBST(self, root: Optional[TreeNode]) -> bool:
-    def validate(low, high, node):
-        if not node:
-            return True
-        elif node.val <= low or node.val >= high:
-            return False
-        else:
-            return validate(low, node.val, node.left) and validate(node.val, high, node.right)
-
-    return validate(float('-inf'), float('inf'), root)
-    
-    time = o(n) 
-    space = o(n)
-    where n is the number of nodes
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        #we define our recursive function to keep checking if the left and right nodes of the root follow the bst rules
+        #i.e The left subtree of a node contains only nodes with keys lesser than the node’s key.
+        #the right subtree of a node contains only nodes with keys greater than the node’s key.
+        def valid(node, left, right):
+            #edge cases if node is none we return True, because an empty node is a bst
+            if not node:
+                return True
+            #we check for our conditions
+            if not (left < node.val and right > node.val):
+                return False
+            
+            #We run our recursive function for both the left and right subtrees.
+            return (valid(node.left, left, node.val) and valid(node.right, node.val, right))
+        
+        #Run our function
+        return valid(root, float('-inf'), float('inf'))
+        
+time = o(n) 
+space = o(n)
+where n is the number of nodes
