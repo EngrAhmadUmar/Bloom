@@ -1,0 +1,29 @@
+For the first problem, the root node would be an ID that is not a child of any node -> definition of root node
+Approach 1:
+
+    Loop through the entire input object and add all the child ID to a hash map called children
+    Loop through the input object again, check if ID is in the children hash map created above
+    a. If ID exist in children hash map -> it is a child and cannot be a root node
+    b. if ID doesn't exist in children hash map -> must be the root node
+
+E.g., {5 : [ ] , 1: [2, 3], 4 : [ ], 3: [6], 6 : [ ], 2 : [4, 5]} <--- example from original post
+All process = [5, 1, 4, 3, 6, 2]
+All children = [2, 3, 6, 4, 5]
+Only ID that is in All process but not in All children is 1, so 1 is root node.
+
+Time complexity = O(n)
+Space complexity = O(n)
+
+ip = {5 : [], 1: [2, 3], 4 : [], 3: [6], 6 : [], 2 : [4, 5]}
+
+root_node = set()
+
+for node in ip:
+    root_node.add(node)
+
+for eachNode, children in ip.items():
+    for eachChild in children:
+        if eachChild in root_node:
+            root_node.remove(eachChild)
+
+print(root_node)
