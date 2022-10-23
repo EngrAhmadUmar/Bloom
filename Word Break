@@ -1,0 +1,19 @@
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        # #We use a dp solution
+        # #Creating our dp array
+        dp = [False for i in range(len(s)+1)]
+        #We mark our first position as true as it is the empty string
+        dp[0] = True
+        #We loop through our string
+        for start in range(len(s)):
+            #We check if the value in our dp at start is False
+            #If it is false we stop looping because cant make a sentence from that word
+            if not dp[start]:
+                continue
+            for end in range(start+1, len(s)+1):
+                #if substring of start to end in dictionary we make end as True
+                if s[start:end] in wordDict:
+                    dp[end] = True
+        #We return the last value in our dp
+        return dp[-1]
